@@ -29,11 +29,11 @@ my_skewness = []
 my_std_dev = []
 my_mean = []
 
-no_contr = 6 # number of contributors
+no_contr = 2 # number of contributors
 
 for i in range(0,no_contr-1):
 
-    conv = scipy.signal.fftconvolve(c_dist , c_dist_const) #convolution
+    conv = scipy.signal.fftconvolve(c_dist , c_dist_const, mode='valid') #convolution
     conv = conv / max(conv) #normalization (0:1)
 
     #set reconstruction based on pdf (result of convolution)
