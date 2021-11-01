@@ -39,7 +39,7 @@ hMax = 0.2 # maximal allowed time step size
 eMin = 8e-10 # minimal allowed estimated error
 eMax = 1e-9 # maximal allowed estimated error
 
-nMax = 100000 # max limit of iterations
+nMax = 1000 # max limit of iterations
 
 
 # ==============================================================================================================
@@ -90,8 +90,8 @@ while (i < nMax-1 and t < tf):
     k2 = h * fPrime(t + 0.25*h , y + 0.25*k1)
     k3 = h * fPrime(t + (3/8)*h , y + (3/32)*k1 + (9/32)*k2)
     k4 = h * fPrime(t + (12/13)*h , y + (1932/2197)*k1 - (7200/2197)*k2 + (7296/2197)*k3)
-    k5 = h * fPrime(t + h , y + (439/216)*k1 - 8*k2 + (3680/513)*k3 - (845/4104)*k4)
-    k6 = h * fPrime(t + 0.5*h , y - (8/27)*k1 + 2*k2 - (3544/2565)*k3 + (1865/4104)*k4 - (11/40)*k5)
+    k5 = h * fPrime(t + h , y + (439/216)*k1 - 8*k2 + (3680/513)*k3 - (845/4140)*k4)
+    k6 = h * fPrime(t + 0.5*h , y - (8/27)*k1 + 2*k2 - (3544/2565)*k3 + (1856/4104)*k4 - (11/40)*k5)
 
     y4 = y + w4[0]*k1 + w4[1]*k2 + w4[2]*k3 + w4[3]*k4 + w4[4]*k5
     y5 = y + w5[0]*k1 + w5[1]*k2 + w5[2]*k3 + w5[3]*k4 + w5[4]*k5 + w5[5]*k6
@@ -119,11 +119,13 @@ while (i < nMax-1 and t < tf):
 #test_time = np.arange(t0, tf, 0.1)
 exact = exact_sol(np.array(time))
 
+print(len(solution))
+
 plt.plot(time, exact, label='exact solution')
 plt.plot(time, solution, label='R-K method')
 plt.legend()
 #plt.plot(time,error)
 plt.show()
 
-plt.plot(error)
+plt.plot(time[:-1], error)
 plt.show()
